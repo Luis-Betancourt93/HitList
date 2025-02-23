@@ -10,6 +10,10 @@ const client = new Client()
 
 const databases = new Databases(client);
 
+const form = document.querySelector ('form')
+form.addEventListener('submit', addJob)
+
+
 const promise = databases.createDocument(
     DATABASE_ID,
     COLLECTION_ID,
