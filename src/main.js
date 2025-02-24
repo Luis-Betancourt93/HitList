@@ -1,8 +1,9 @@
 import './style.css'
+import { Client, Databases, ID } from "appwrite";
 import { PROJECT_ID, DATABASE_ID, COLLECTION_ID } from './shhh.js';
 
 
-import { Client, Databases, ID } from "appwrite";
+
 
 const client = new Client()
     .setEndpoint('https://cloud.appwrite.io/v1')
@@ -19,14 +20,24 @@ function addJob(e) {
     DATABASE_ID,
     COLLECTION_ID,
     ID.unique(),
-    { "company-name": e.target.companyName.value,
+    { 
+      "company-name": e.target.companyName.value,
       "date-added" : e.target.dateAdded.value,
       "role" : e.target.role.value,
       "location" : e.target.location.value,
       "position-type" : e.target.positionType.value,
       "source" : e.target.source.value
+    
      }
 );
+
+promise.then(function (response) {
+    console.log(response);
+}, function (error) {
+    console.log(error);
+});
+
+    form.reset()
 }
 
 
@@ -44,8 +55,5 @@ const promise = databases.createDocument(
      }
 );
 */
-promise.then(function (response) {
-    console.log(response);
-}, function (error) {
-    console.log(error);
-});
+
+
