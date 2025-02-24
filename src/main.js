@@ -13,7 +13,24 @@ const databases = new Databases(client);
 const form = document.querySelector ('form')
 form.addEventListener('submit', addJob)
 
+function addJob(e) {
+ e.preventDefault()
+ const promise = databases.createDocument(
+    DATABASE_ID,
+    COLLECTION_ID,
+    ID.unique(),
+    { "company-name": e.target.companyName.value,
+      "date-added" : e.target.dateAdded.value,
+      "role" : e.target.role.value,
+      "location" : e.target.location.value,
+      "position-type" : e.target.positionType.value,
+      "source" : e.target.source.value
+     }
+);
+}
 
+
+/*
 const promise = databases.createDocument(
     DATABASE_ID,
     COLLECTION_ID,
@@ -26,7 +43,7 @@ const promise = databases.createDocument(
       "source" : "heeps://100devs.org"
      }
 );
-
+*/
 promise.then(function (response) {
     console.log(response);
 }, function (error) {
