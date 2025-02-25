@@ -14,6 +14,7 @@ const databases = new Databases(client);
 const form = document.querySelector ('form')
 form.addEventListener('submit', addJob)
 
+/* Creating Jobs from the form */
 function addJob(e) {
  e.preventDefault()
  const promise = databases.createDocument(
@@ -40,6 +41,21 @@ promise.then(function (response) {
     form.reset()
 }
 
+/* Getting back jobs listings from the database */
+function addJobsToDom() {
+    let promise = databases.listDocuments(
+        DATABASE_ID,
+        COLLECTION_ID
+    );
+    
+    promise.then(function (response) {
+        console.log(response);
+    }, function (error) {
+        console.log(error);
+    });
+}
+
+addJobsToDom()
 
 /*
 const promise = databases.createDocument(
