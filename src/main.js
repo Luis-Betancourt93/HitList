@@ -42,17 +42,25 @@ promise.then(function (response) {
 }
 
 /* Getting back jobs listings from the database */
-function addJobsToDom() {
-    let promise = databases.listDocuments(
+async function addJobsToDom() {
+    let response = await databases.listDocuments(
         DATABASE_ID,
         COLLECTION_ID
     );
-    
-    promise.then(function (response) {
-        console.log(response);
-    }, function (error) {
-        console.log(error);
-    });
+    response.documents.forEach((job) => {
+        const li = document.createElement('li')
+        li.textContent = `${job['company-name']} ${job['date-added']} ${job['role']} ${job['location']} ${job['position-type']} ${job['source']}`
+        document.querySelector('ul').appendChild(li)
+    })
+
+    //console.log(response )
+    /*
+        promise.then(function (response) {
+            console.log(response);
+        }, function (error) {
+            console.log(error);
+        });
+    */
 }
 
 addJobsToDom()
