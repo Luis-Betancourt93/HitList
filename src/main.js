@@ -17,7 +17,7 @@ form.addEventListener('submit', addJob)
 /* Creating Jobs from the form */
 function addJob(e) {
  e.preventDefault()
- const promise = databases.createDocument(
+ const job = databases.createDocument(
     DATABASE_ID,
     COLLECTION_ID,
     ID.unique(),
@@ -32,8 +32,8 @@ function addJob(e) {
      }
 );
 
-promise.then(function (response) {
-    console.log(response);
+job.then(function (response) {
+    addJobsToDom()
 }, function (error) {
     console.log(error);
 });
