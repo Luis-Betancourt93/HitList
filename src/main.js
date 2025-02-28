@@ -41,8 +41,11 @@ job.then(function (response) {
     form.reset()
 }
 
+
+
 /* Getting back jobs listings from the database */
 async function addJobsToDom() {
+    document.querySelector('ul').innerHTML = ''
     let response = await databases.listDocuments(
         DATABASE_ID,
         COLLECTION_ID
