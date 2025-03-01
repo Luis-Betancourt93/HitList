@@ -52,10 +52,42 @@ async function addJobsToDom() {
     );
     response.documents.forEach((job) => {
         const li = document.createElement('li')
-        li.textContent = `${job['company-name']} ${job['date-added']} ${job['role']} ${job['location']} ${job['position-type']} ${job['source']}`
+        li.textContent = `${job['company-name']} ${job['date-added']} ${job['role']} ${job['location']} ${job['position-type']} ${job['source']} coffee chat? ${job['chat']}`
+
+        li.id = job['$id']
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.onclick = () => removeJob(job['$id']);
+        
+
+        const coffeebutton = document.createElement('button');
+        coffeebutton.textContent = '☕';
+        coffeebutton.onclick = () => updateChat(job['$id']);
+
+        li.appendChild(coffeebutton);
+        li.appendChild(deleteButton);
         document.querySelector('ul').appendChild(li)
     })
 
+    async function removeJob(id) {
+        const result = await databases.deleteDocument(
+            DATABASE_ID, // databaseId
+            COLLECTION_ID, // collectionId
+            id // documentId
+        );
+        document.getElementById(id).remove();
+    }
+
+    async function updateChat(id) {
+        const result = await databases.updateDocument(
+            DATABASE_ID, // databaseId
+            COLLECTION_ID, // collectionId
+            id, // documentId
+            {'chat': true}, // data (optional)
+            
+        );
+    }
     //console.log(response )
     /*
         promise.then(function (response) {
