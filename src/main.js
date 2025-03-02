@@ -80,13 +80,15 @@ async function addJobsToDom() {
     }
 
     async function updateChat(id) {
-        const result = await databases.updateDocument(
+        const result = databases.updateDocument(
             DATABASE_ID, // databaseId
             COLLECTION_ID, // collectionId
             id, // documentId
             {'chat': true}, // data (optional)
             
         );
+         result.then(function(){location.reload()}) 
+
     }
     //console.log(response )
     /*
